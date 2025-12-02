@@ -1,4 +1,3 @@
-cat > 1-alphabet.c << 'EOF'
 #include "main.h"
 
 /**
@@ -17,4 +16,3 @@ void print_alphabet(void)
 	}
 	_putchar('\n');
 }
-EOF 
