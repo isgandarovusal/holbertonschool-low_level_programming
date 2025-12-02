@@ -1,3 +1,4 @@
+cat > 1-alphabet.c << 'EOF'
 #include "main.h"
 
 /**
@@ -7,12 +8,13 @@
  */
 void print_alphabet(void)
 {
-    char letter = 'a';
+	char letter = 'a';
 
-    while (letter <= 'z')
-    {
-        _putchar(letter);
-        letter++;
-    }
-    _putchar('\n');
+	while (letter <= 'z')
+	{
+		_putchar(letter);
+		letter++;
+	}
+	_putchar('\n');
 }
+EOF 
