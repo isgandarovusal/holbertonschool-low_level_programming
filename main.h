@@ -1,8 +1,7 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-int _putchar(char c);
-int _isupper(int c);
-int _isdigit(int c);
+char *create_array(unsigned int size, char c);
+char *_strdup(char *str);
 
 #endif
