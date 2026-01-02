@@ -20,9 +20,13 @@ void puts_half(char *str)
 	else
 		n = (len + 1) / 2;
 
-	/* Print starting from (len - n) */
-	for (i = len - n; i < len; i++)
+	i = len - n;
+
+	while (i < len)
+	{
 		_putchar(str[i]);
+		i++;
+	}
 
 	_putchar('\n');
 }
