@@ -3,30 +3,23 @@
 /**
  * puts_half - prints half of a string
  * @str: string to print
- *
- * Description: Prints the second half of the string.
- * If length is odd, prints last n characters where n = (length + 1) / 2
  */
 void puts_half(char *str)
 {
 	int len = 0;
-	int i, n;
+	int start;
 
-	while (str[len] != '\0')
+	while (str[len])
 		len++;
 
-	if (len % 2 == 0)
-		n = len / 2;
-	else
-		n = (len + 1) / 2;
+	start = len / 2;
+	if (len % 2 == 1)
+		start++;
 
-	i = len - n;
-
-	while (i < len)
+	while (str[start])
 	{
-		_putchar(str[i]);
-		i++;
+		_putchar(str[start]);
+		start++;
 	}
-
 	_putchar('\n');
 }
