@@ -1,3 +1,3 @@
 # Singly Linked Lists
 
-Learning project about linked lists in C.
+Project about linked lists in C.
