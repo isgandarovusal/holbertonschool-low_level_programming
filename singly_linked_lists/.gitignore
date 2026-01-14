@@ -1,5 +1,14 @@
+# Compiled executables
 *.o
 *.out
 a
 b
+c
+d
+e
+
+# Test files
 *-main.c
+
+# Betty output files
+betty_output
