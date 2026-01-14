@@ -7,8 +7,18 @@ c
 d
 e
 
-# Test files
-*-main.c
+# Test files (keep locally but don't track in git)
+0-main.c
+1-main.c
+2-main.c
+3-main.c
+4-main.c
 
 # Betty output files
 betty_output
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*~
