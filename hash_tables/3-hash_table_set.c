@@ -4,6 +4,44 @@
 #include "hash_tables.h"
 
 /**
+ * create_new_node - Creates a new hash node
+ * @key: The key
+ * @value: The value
+ *
+ * Return: Pointer to new node or NULL on failure
+ */
+hash_node_t *create_new_node(const char *key, const char *value)
+{
+	hash_node_t *new_node;
+	char *key_copy, *value_copy;
+
+	new_node = malloc(sizeof(hash_node_t));
+	if (!new_node)
+		return (NULL);
+
+	key_copy = strdup(key);
+	if (!key_copy)
+	{
+		free(new_node);
+		return (NULL);
+	}
+
+	value_copy = strdup(value);
+	if (!value_copy)
+	{
+		free(key_copy);
+		free(new_node);
+		return (NULL);
+	}
+
+	new_node->key = key_copy;
+	new_node->value = value_copy;
+	new_node->next = NULL;
+
+	return (new_node);
+}
+
+/**
  * hash_table_set - Add or update an element in a hash table.
  * @ht: A pointer to the hash table.
  * @key: The key to add - cannot be an empty string.
@@ -14,60 +52,36 @@
  */
 int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 {
-	hash_node_t *new_node, *tmp;
-	unsigned long int index;
+	hash_node_t *node, *new_node;
+	unsigned long int idx;
 	char *value_copy;
 
-	/* Check for invalid inputs */
-	if (ht == NULL || key == NULL || *key == '\0')
+	if (!ht || !key || !*key)
 		return (0);
 
-	/* Get the index for the key */
-	index = key_index((const unsigned char *)key, ht->size);
+	idx = key_index((const unsigned char *)key, ht->size);
+	node = ht->array[idx];
 
-	/* Check if key already exists in the chain */
-	tmp = ht->array[index];
-	while (tmp != NULL)
+	while (node)
 	{
-		if (strcmp(tmp->key, key) == 0)
+		if (strcmp(node->key, key) == 0)
 		{
-			/* Key exists, update the value */
 			value_copy = strdup(value);
-			if (value_copy == NULL)
+			if (!value_copy)
 				return (0);
-			free(tmp->value);
-			tmp->value = value_copy;
+			free(node->value);
+			node->value = value_copy;
 			return (1);
 		}
-		tmp = tmp->next;
+		node = node->next;
 	}
 
-	/* Key doesn't exist, create new node */
-	new_node = malloc(sizeof(hash_node_t));
-	if (new_node == NULL)
+	new_node = create_new_node(key, value);
+	if (!new_node)
 		return (0);
 
-	/* Duplicate the key and value */
-	new_node->key = strdup(key);
-	if (new_node->key == NULL)
-	{
-		free(new_node);
-		return (0);
-	}
-
-	value_copy = strdup(value);
-	if (value_copy == NULL)
-	{
-		free(new_node->key);
-		free(new_node);
-		return (0);
-	}
-
-	new_node->value = value_copy;
-
-	/* Add new node at the beginning of the chain (collision handling) */
-	new_node->next = ht->array[index];
-	ht->array[index] = new_node;
+	new_node->next = ht->array[idx];
+	ht->array[idx] = new_node;
 
 	return (1);
 }
